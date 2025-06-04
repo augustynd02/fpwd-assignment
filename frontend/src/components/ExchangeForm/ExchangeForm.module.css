@@ -1,5 +1,6 @@
 .exchangeForm {
     padding: var(--spacing-large);
+    margin: 0 1rem;
     width: 100%;
     max-width: 960px;
 
@@ -18,12 +19,20 @@
         background-color: rgb(240, 240, 240);
         color: black;
 
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+        }
+
         .formGroup {
             width: 50%;
 
             display: flex;
             flex-direction: column;
             gap: 4px;
+
+            @media screen and (max-width: 600px) {
+                width: 100%;
+            }
 
             .label {
                 margin-left: 8px;
@@ -46,6 +55,8 @@
                     align-items: center;
 
                     font-size: 20px;
+                    font-weight: 500;
+                    font-family: var(--font-primary);
                     color: black;
 
                     border: none;
@@ -60,7 +71,8 @@
                     box-shadow: rgba(161, 161, 161, 0.25) 0px 4px 10px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
                 }
 
-                input::placeholder, p.placeholder {
+                input::placeholder,
+                p.placeholder {
                     color: rgb(114, 114, 114);
                     font-family: var(--font-primary);
                     font-weight: 300;
@@ -74,6 +86,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+            gap: var(--spacing-small);
+        }
 
         .error {
             font-size: 18px;
@@ -92,6 +109,10 @@
         font-size: 16px;
         font-weight: 400;
         cursor: pointer;
+
+        @media screen and (max-width: 600px) {
+            width: 100%;
+        }
     }
 
     button:hover {
