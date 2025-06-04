@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { HttpModule } from '@nestjs/axios';
+import { CacheModule } from '@nestjs/cache-manager';
+import { ConfigModule } from '@nestjs/config';
+
+import { ExchangeRateService } from './shared/exchange-rate.service';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    HttpModule,
+    CacheModule.register({}),
+    ConfigModule.forRoot()
+  ],
+  controllers: [],
+  providers: [ExchangeRateService],
 })
 export class AppModule {}
