@@ -34,7 +34,7 @@ export class ExchangeRateService {
             })
         );
 
-        const data = response.data;
+        const data = response.data.exchange_rate;
 
         await this.cacheManager.set('rate', data, 60000);
 
