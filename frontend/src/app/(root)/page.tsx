@@ -10,9 +10,10 @@ export default async function Home() {
 	return (
 		<div className={styles.homepage}>
 			<h1>Exchange EUR to PLN</h1>
-			<p>Current exchange rate: {exchangeRate.data.rate}</p>
-			<p>{exchangeRate.data.secondsLeft}</p>
-			<ExchangeTimer initialSeconds={exchangeRate.data.secondsLeft} />
+			<div className={styles.rateInfo}>
+				<p className={styles.rate}>Current exchange rate: <span>{exchangeRate.data.rate}</span></p>
+				<ExchangeTimer initialSeconds={exchangeRate.data.secondsLeft} />
+			</div>
 			<ExchangeForm />
 		</div>
 	);

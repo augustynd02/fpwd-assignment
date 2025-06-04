@@ -17,15 +17,15 @@ export class TransactionController {
 
     @Post()
     async submitTransaction(@Body('amount') amount: number) {
-        const { rate } = await this.exchangeRateService.getExchangeRate();
+        const { data } = await this.exchangeRateService.getExchangeRate();
 
-        const amountPLN = amount * rate;
+        const amountPLN = amount * data.rate;
         const timestamp = new Date();
 
         const transaction: Transaction = {
             amountEUR: amount,
             amountPLN: amountPLN,
-            exchangeRate: rate,
+            exchangeRate: data.rate,
             timestamp: timestamp
         }
         this.transactions.push(transaction);
