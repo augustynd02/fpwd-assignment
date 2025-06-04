@@ -1,0 +1,102 @@
+.exchangeForm {
+    padding: var(--spacing-large);
+    width: 100%;
+    max-width: 960px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(240, 240, 240);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+    border-radius: 32px;
+    color: black;
+
+    .mainContainer {
+        display: flex;
+        gap: var(--spacing-large);
+
+        background-color: rgb(240, 240, 240);
+        color: black;
+
+        .formGroup {
+            width: 50%;
+
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .label {
+                margin-left: 8px;
+            }
+
+            .amountContainer {
+                height: 50px;
+
+                text-align: left;
+                box-shadow: rgba(255, 255, 255, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                border-radius: 16px;
+
+                input,
+                p {
+                    padding: var(--spacing-small);
+                    width: 100%;
+                    height: 100%;
+
+                    display: flex;
+                    align-items: center;
+
+                    font-size: 20px;
+                    color: black;
+
+                    border: none;
+                    border-radius: 16px;
+                    background-color: white;
+                    text-align: left;
+                }
+
+                input:focus {
+                    transition: box-shadow 0.2s ease;
+                    outline: none;
+                    box-shadow: rgba(161, 161, 161, 0.25) 0px 4px 10px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                }
+
+                input::placeholder, p.placeholder {
+                    color: rgb(114, 114, 114);
+                    font-family: var(--font-primary);
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    .actionsContainer {
+        margin-top: var(--spacing-medium);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .error {
+            font-size: 18px;
+            color: rgb(184, 17, 17);
+        }
+    }
+
+    button {
+        padding: 0.75rem 1.5rem;
+        margin-left: auto;
+
+        background-color: var(--color-primary);
+        color: var(--color-text);
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 400;
+        cursor: pointer;
+    }
+
+    button:hover {
+        transition: background-color 0.2s ease;
+        background-color: var(--color-primary-action);
+    }
+
+}

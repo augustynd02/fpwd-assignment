@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
+import styles from './ExchangeForm.module.css';
+
 type TransactionResponse = {
     amountEUR: number;
     amountPLN: number;
@@ -51,23 +53,37 @@ export default function ExchangeForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Amount in EUR:
-                <input
-                    type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    step="0.01"
-                />
-            </label>
-            <button type="submit" disabled={mutation.isPending}>
-                Convert
-            </button>
+        <form onSubmit={handleSubmit} className={styles.exchangeForm}>
+            <div className={styles.mainContainer}>
+                <div className={styles.formGroup}>
+                    <label htmlFor="amount" className={styles.label}>Amount in EUR</label>
+                    <div className={styles.amountContainer}>
+                        <input
+                            type="number"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            placeholder="Type the amount here..."
+                        />
+                    </div>
+                </div>
+                <div className={styles.formGroup}>
+                    <p className={styles.label}>Amount in PLN</p>
+                    <div className={styles.amountContainer}>
+                        {result
+                            ? <p className={styles.result}>{result.toFixed(2)}</p>
+                            : <p className={styles.placeholder}>Submit the transaction...</p>
+                        }
+                    </div>
+                </div>
+            </div>
 
-            {mutation.isPending && <p>Converting...</p>}
-            {result !== null && <p>{amount} EUR is {result.toFixed(2)} PLN</p>}
-            {mutation.isError && <p>Error: {mutation.error.message}</p>}
+            <div className={styles.actionsContainer}>
+                {mutation.isError && <p className={styles.error}>Error: {mutation.error.message}</p>}
+                <button type="submit" disabled={mutation.isPending}>
+                    {mutation.isPending ? "Converting..." : "Submit"}
+                </button>
+
+            </div>
         </form>
     )
 }
