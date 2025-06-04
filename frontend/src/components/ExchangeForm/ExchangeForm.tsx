@@ -14,7 +14,9 @@ type TransactionResponse = {
 
 const submitTransaction = async (amount: number) => {
     try {
-        const response = await fetch('http://localhost:8000/transaction', {
+        const urlBase = process.env.NEXT_PUBLIC_API_URL;
+        if (!urlBase) throw new Error(".env has no API URL");
+        const response = await fetch(`${urlBase}/transaction`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

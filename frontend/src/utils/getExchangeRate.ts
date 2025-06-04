@@ -7,7 +7,9 @@ type ExchangeRateResponse = {
 }
 
 const getExchangeRate = async (): Promise<ExchangeRateResponse> => {
-    const response = await fetch ('http://localhost:8000/exchange', {
+    const urlBase = process.env.NEXT_PUBLIC_API_URL;
+    if (!urlBase) throw new Error("API URL is not defined");
+    const response = await fetch(`${urlBase}/exchange`, {
         method: "GET",
         cache: 'no-store'
     })
