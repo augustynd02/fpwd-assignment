@@ -11,7 +11,7 @@ export default function ExchangeTimer({ initialSeconds = 60 }) {
         if (seconds === 0) {
             // Refresh SSR data (initial exchange rate)
             router.refresh();
-            setSeconds(initialSeconds);
+            setSeconds(60);
         }
 
         const timer = setTimeout(() => setSeconds(seconds - 1), 1000);
