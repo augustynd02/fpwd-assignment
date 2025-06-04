@@ -5,6 +5,16 @@ import { firstValueFrom } from 'rxjs';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 
+type ExchangeRateResponse = {
+    fromCache: boolean,
+    data: RateType
+}
+
+type RateType = {
+    rate: number,
+    timestamp: number,
+}
+
 @Injectable()
 export class ExchangeRateService {
     constructor(
@@ -13,10 +23,10 @@ export class ExchangeRateService {
         private readonly configService: ConfigService,
     ) { }
 
-    async getExchangeRate() {
-        const cachedRate = await this.cacheManager.get('rate');
-        if (cachedRate) {
-            return { fromCache: true, rate: cachedRate };
+    async getExchangeRate(): Promise<ExchangeRateResponse> {
+        const cachedData = await this.cacheManager.get<RateType>('rate');
+        if (cachedData) {
+            return { fromCache: true, data: cachedData };
         }
 
         const API_URL = this.configService.get<string>('API_URL')
@@ -35,9 +45,10 @@ export class ExchangeRateService {
         );
 
         const data = response.data.exchange_rate;
+        const timestamp = Date.now();
 
-        await this.cacheManager.set('rate', data, 60000);
+        await this.cacheManager.set('rate', { rate: data, timestamp: timestamp}, 60000);
 
-        return { fromCache: false, rate: data };
+        return { fromCache: false, data: { rate: data, timestamp: timestamp} };
     }
 }
