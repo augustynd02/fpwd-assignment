@@ -1,5 +1,6 @@
 .homepage {
     height: 100vh;
+    padding: 1rem;
 
     display: flex;
     flex-direction: column;
@@ -17,14 +18,18 @@
 
     h1 {
         font-size: 48px;
+        text-align: center;
+        font-weight: 500;
     }
 
     .euro {
-        color: rgb(59, 59, 236);
+        color: rgb(91, 91, 243);
+        font-weight: 700;
     }
 
     .pln {
-        color: rgb(226, 67, 67);
+        color: rgb(243, 94, 94);
+        font-weight: 700;
     }
 
     .rateInfo {
