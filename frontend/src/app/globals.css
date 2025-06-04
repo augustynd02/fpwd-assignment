@@ -1,6 +1,8 @@
 :root {
   --color-background: rgb(29, 29, 29);
   --color-text: rgb(243, 243, 243);
+  --color-primary: rgb(121, 54, 160);
+  --color-primary-action: rgb(145, 75, 185);
 
   --spacing-small: 0.5rem;
   --spacing-medium: 1rem;
