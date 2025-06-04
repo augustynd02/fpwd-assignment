@@ -1,4 +1,12 @@
-const getExchangeRate = async (): Promise<number> => {
+type ExchangeRateResponse = {
+    fromCache: boolean,
+    data: {
+        rate: number,
+        secondsLeft: number
+    }
+}
+
+const getExchangeRate = async (): Promise<ExchangeRateResponse> => {
     const response = await fetch ('http://localhost:8000/exchange', {
         method: "GET",
         cache: 'no-store'
@@ -10,7 +18,7 @@ const getExchangeRate = async (): Promise<number> => {
 
     const data = await response.json();
 
-    return data.rate;
+    return data;
 }
 
 export default getExchangeRate;
