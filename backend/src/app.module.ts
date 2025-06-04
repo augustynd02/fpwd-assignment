@@ -4,6 +4,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule } from '@nestjs/config';
 
 import { ExchangeRateService } from './shared/exchange-rate.service';
+import { ExchangeController } from './exchange/exchange.controller';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { ExchangeRateService } from './shared/exchange-rate.service';
     CacheModule.register({}),
     ConfigModule.forRoot()
   ],
-  controllers: [],
+  controllers: [ExchangeController],
   providers: [ExchangeRateService],
 })
 export class AppModule {}
