@@ -7,8 +7,24 @@
     align-items: center;
     gap: var(--spacing-medium);
 
+    --gradient-color1: #141414;
+    --gradient-color2: #1d1d1d;
+    --gradient-color3: #3a3a3a;
+    --gradient-color4: #1b1b1b;
+    background: linear-gradient(135deg, var(--gradient-color1), var(--gradient-color2), var(--gradient-color3), var(--gradient-color4));
+    background-size: 400% 400%;
+    animation: gradientAnimation 7s ease infinite;
+
     h1 {
         font-size: 48px;
+    }
+
+    .euro {
+        color: rgb(59, 59, 236);
+    }
+
+    .pln {
+        color: rgb(226, 67, 67);
     }
 
     .rateInfo {

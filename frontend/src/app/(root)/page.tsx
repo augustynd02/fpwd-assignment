@@ -9,7 +9,7 @@ export default async function Home() {
 	console.log(exchangeRate);
 	return (
 		<div className={styles.homepage}>
-			<h1>Exchange EUR to PLN</h1>
+			<h1>Exchange <span className={styles.euro}>EUR</span> to <span className={styles.pln}>PLN</span></h1>
 			<div className={styles.rateInfo}>
 				<p className={styles.rate}>Current exchange rate: <span>{exchangeRate.data.rate}</span></p>
 				<ExchangeTimer initialSeconds={exchangeRate.data.secondsLeft} />
