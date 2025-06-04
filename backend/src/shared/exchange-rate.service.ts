@@ -5,15 +5,18 @@ import { firstValueFrom } from 'rxjs';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 
-type ExchangeRateResponse = {
-    fromCache: boolean,
-    data: RateType
-}
-
 type RateType = {
     rate: number,
-    timestamp: number,
+    timestamp: number
 }
+
+type ExchangeRateResponse = {
+    fromCache: boolean;
+    data: {
+        rate: number;
+        secondsLeft: number;
+    };
+};
 
 @Injectable()
 export class ExchangeRateService {
@@ -26,14 +29,23 @@ export class ExchangeRateService {
     async getExchangeRate(): Promise<ExchangeRateResponse> {
         const cachedData = await this.cacheManager.get<RateType>('rate');
         if (cachedData) {
-            return { fromCache: true, data: cachedData };
+            const dataAgeMs = Date.now() - cachedData.timestamp;
+            const secondsLeft = Math.max(0, 60 - Math.floor(dataAgeMs / 1000));
+
+            return {
+                fromCache: true,
+                data: {
+                    rate: cachedData.rate,
+                    secondsLeft: secondsLeft
+                }
+            };
         }
 
         const API_URL = this.configService.get<string>('API_URL')
         const API_KEY = this.configService.get<string>('API_KEY')
 
         if (!API_URL || !API_KEY) {
-            throw new Error (".env variables are not defined");
+            throw new Error(".env variables are not defined");
         }
 
         const response = await firstValueFrom(
@@ -44,11 +56,17 @@ export class ExchangeRateService {
             })
         );
 
-        const data = response.data.exchange_rate;
+        const rate = response.data.exchange_rate;
         const timestamp = Date.now();
 
-        await this.cacheManager.set('rate', { rate: data, timestamp: timestamp}, 60000);
+        await this.cacheManager.set('rate', { rate, timestamp }, 60000);
 
-        return { fromCache: false, data: { rate: data, timestamp: timestamp} };
+        return {
+            fromCache: false,
+            data: {
+                rate,
+                secondsLeft: 60
+            }
+        };
     }
 }
