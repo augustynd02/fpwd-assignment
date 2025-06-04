@@ -12,6 +12,9 @@ interface Transaction {
 export class TransactionController {
     constructor(private readonly exchangeRateService: ExchangeRateService) { }
 
+    // Memory storage for transactions - may be replaced with a DB query
+    private transactions: Transaction[] = [];
+
     @Post()
     async submitTransaction(@Body('amount') amount: number) {
         const { rate } = await this.exchangeRateService.getExchangeRate();
@@ -19,13 +22,14 @@ export class TransactionController {
         const amountPLN = amount * rate;
         const timestamp = new Date();
 
-        // TODO: store transaction
         const transaction: Transaction = {
             amountEUR: amount,
             amountPLN: amountPLN,
             exchangeRate: rate,
             timestamp: timestamp
         }
+        this.transactions.push(transaction);
+        console.log(this.transactions);
 
         return transaction;
     }
